@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LUX  Cash Register", "LUX  KASSA\LUX  Cash Register.csproj", "{651103D3-5F0B-4D1F-9B37-679D5E7E56F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{651103D3-5F0B-4D1F-9B37-679D5E7E56F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{651103D3-5F0B-4D1F-9B37-679D5E7E56F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{651103D3-5F0B-4D1F-9B37-679D5E7E56F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{651103D3-5F0B-4D1F-9B37-679D5E7E56F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0ADAC5A6-2397-415B-AB30-154C262E26D8}
+	EndGlobalSection
+EndGlobal

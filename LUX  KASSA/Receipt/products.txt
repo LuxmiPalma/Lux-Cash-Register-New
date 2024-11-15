@@ -1,0 +1,2 @@
+200,Onion,50,kg,Vegetable
+300,Apple,50,kg,Fruit
