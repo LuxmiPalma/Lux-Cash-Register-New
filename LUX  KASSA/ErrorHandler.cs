@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LUX_Cash_Register
-
+namespace LUX__KASSA
 {
     public class ErrorHandler : IErrorHandler
     {
