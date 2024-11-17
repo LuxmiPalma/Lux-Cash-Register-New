@@ -120,7 +120,7 @@ namespace Lux_Cash_Register.Command
                                 writer.WriteLine(campaignKey);
 
                                 // Debug: Print to console for verification
-                                Console.WriteLine($"--Saved campaign: {campaignKey}--");
+                                Console.WriteLine($"Saving campaign: {campaignKey}");
                             }
 
                         }

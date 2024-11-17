@@ -74,7 +74,6 @@ namespace Lux_Cash_Register.Command
                 // Step 1: Loop until valid, non-overlapping dates are entered
                 while (!validDates)
                 {
-                    // Prompt user to enter dates and check their validity
                     if (!TryGetDate("Enter the campaign start date (yyyy-MM-dd): ", out startDate) ||
                         !TryGetDate("Enter the campaign end date (yyyy-MM-dd): ", out endDate) ||
                         startDate > endDate)
@@ -84,15 +83,15 @@ namespace Lux_Cash_Register.Command
                         return;
                     }
 
-                    // Check for existing campaigns in the specified date range
-                    if (product.Campaigns.Any(c => c.StartDate <= endDate && c.EndDate >= startDate))
+                    // Check for existing campaigns with the same date range and price
+                    if (product.Campaigns.Any(c => c.StartDate == startDate && c.EndDate == endDate))
                     {
-                        _errorHandler.ShowError("A campaign already exists in the specified date range. Please try a different date range.");
+                        _errorHandler.ShowError("A campaign with the same dates already exists.");
                         Console.ReadLine();
-
+                        return;
                     }
-                    validDates = true;
 
+                    validDates = true;
                 }
 
                 // Step 2: Prompt user for campaign price
