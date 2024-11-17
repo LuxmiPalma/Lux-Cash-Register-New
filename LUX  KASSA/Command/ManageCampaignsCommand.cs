@@ -91,10 +91,8 @@ namespace Lux_Cash_Register.Command
                         Console.ReadLine();
 
                     }
-                    else
-                    {
-                        validDates = true; // Dates are valid and non-overlapping
-                    }
+                    validDates = true;
+
                 }
 
                 // Step 2: Prompt user for campaign price
@@ -129,25 +127,35 @@ namespace Lux_Cash_Register.Command
                     return;
                 }
 
-                // Display the most recent campaign details to confirm removal
-                var lastCampaign = product.Campaigns.LastOrDefault();
-                if (lastCampaign != null)
+                // Display all campaigns for the product
+                Console.WriteLine($"Campaign list for product '{product.ProductId}':");
+                for (int i = 0; i < product.Campaigns.Count; i++)
                 {
-                    Console.WriteLine($"The most recent campaign: {lastCampaign.StartDate:yyyy-MM-dd} to {lastCampaign.EndDate:yyyy-MM-dd} - Price: {lastCampaign.CampaignPrice}");
+                    var campaign = product.Campaigns[i];
+                    Console.WriteLine($"{i + 1}. {campaign.StartDate:yyyy-MM-dd} to {campaign.EndDate:yyyy-MM-dd} - Price: {campaign.CampaignPrice}");
+                }
+
+                // Ask user to select a campaign to remove
+                Console.Write("Enter the number of the campaign you want to remove: ");
+                if (int.TryParse(Console.ReadLine(), out int campaignIndex) &&
+                    campaignIndex > 0 && campaignIndex <= product.Campaigns.Count)
+                {
+                    // Confirm the campaign removal
+                    var selectedCampaign = product.Campaigns[campaignIndex - 1];
+                    Console.WriteLine($"You selected: {selectedCampaign.StartDate:yyyy-MM-dd} to {selectedCampaign.EndDate:yyyy-MM-dd} - Price: {selectedCampaign.CampaignPrice}");
                     Console.Write("Do you want to permanently remove this campaign? (y/n): ");
 
-                    // Check if user confirms removal
                     if (Console.ReadLine()?.ToLower() == "y")
                     {
-                        // Remove the campaign from the in-memory list
-                        product.RemoveCampaign(lastCampaign);
+                        // Remove the selected campaign
+                        product.RemoveCampaign(selectedCampaign);
 
-                        // Save the updated campaigns to the file to make the removal permanent
+                        // Save the updated campaigns to the file
                         _fileHandler.SaveCampaigns(_products);
 
                         Console.WriteLine("Campaign has been permanently removed.");
 
-                        // Update any dependent components, like the SalesManager
+                        // Update dependent components, if necessary
                         _salesManager?.UpdateProductInSales(product);
                     }
                     else
@@ -157,7 +165,7 @@ namespace Lux_Cash_Register.Command
                 }
                 else
                 {
-                    _errorHandler.ShowError("No recent campaign found to remove.");
+                    _errorHandler.ShowError("Invalid selection. No campaign removed.");
                 }
             }
             catch (Exception ex)
@@ -166,6 +174,7 @@ namespace Lux_Cash_Register.Command
                 _errorHandler.ShowError("An error occurred while removing the campaign.");
             }
         }
+    
         private bool TryGetDate(string message, out DateTime date)
         {
             Console.Write(message);

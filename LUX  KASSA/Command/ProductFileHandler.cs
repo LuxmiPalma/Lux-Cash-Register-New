@@ -103,16 +103,26 @@ namespace Lux_Cash_Register.Command
         {
             try
             {
+                var uniqueCampaigns = new HashSet<string>();
+
                 using (StreamWriter writer = new StreamWriter(_campaignFilePath, false))
                 {
                     foreach (var product in products)
                     {
                         foreach (var campaign in product.Campaigns)
                         {
-                            if (IsCampaignActive(campaign))
+                            // Create a unique string representation of the campaign
+                            string campaignKey = $"{product.ProductId},{campaign.StartDate:yyyy-MM-dd},{campaign.EndDate:yyyy-MM-dd},{campaign.CampaignPrice}";
+
+                            // Only write the campaign if it hasn't been written before
+                            if (uniqueCampaigns.Add(campaignKey))
                             {
-                                writer.WriteLine($"{product.ProductId},{campaign.StartDate:yyyy-MM-dd},{campaign.EndDate:yyyy-MM-dd},{campaign.CampaignPrice}");
+                                writer.WriteLine(campaignKey);
+
+                                // Debug: Print to console for verification
+                                Console.WriteLine($"--Saved campaign: {campaignKey}--");
                             }
+
                         }
                     }
                 }
