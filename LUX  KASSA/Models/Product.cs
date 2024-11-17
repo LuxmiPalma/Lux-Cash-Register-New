@@ -14,7 +14,7 @@ namespace Lux_Cash_Register.Models
         public double Price { get; set; } // Base price without any discounts
         public string PriceType { get; set; } // "per unit" eller "per kg"
         public string Category { get; set; }
-        public List<Campaign> Campaigns { get; private set; } = new List<Campaign>(); // Lista över kampanjer
+        public List<Campaign> Campaigns { get; private set; } = new List<Campaign>(); // Lista over campa
 
         // Add the CurrentDiscount property
         public double CurrentDiscount { get; set; } = 0;

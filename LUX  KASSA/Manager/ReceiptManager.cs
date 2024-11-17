@@ -61,8 +61,11 @@ namespace Lux_Cash_Register.Manager
             Console.Clear();
             PrintCenteredReceipt(formattedReceipt);
 
-            string fileName = Path.Combine(ReceiptFilePath, $"Receipt-{DateTime.Now:yyyy-MM-dd}.txt");
-            Directory.CreateDirectory(ReceiptFilePath);
+            string subfolderPath = Path.Combine(ReceiptFilePath, $"Save Receipt-{DateTime.Now:yyyy-MM-dd}.txt");
+            Directory.CreateDirectory(subfolderPath);
+            
+            // Save the receipt in the subfolder
+            string fileName = Path.Combine(subfolderPath, $"Receipt-{DateTime.Now:yyyy-MM-dd}.txt");
 
             using (StreamWriter writer = new StreamWriter(fileName, append: true))
             {

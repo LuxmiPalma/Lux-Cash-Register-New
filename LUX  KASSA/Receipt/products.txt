@@ -1,3 +1,9 @@
 200,Onion,50,kg,Vegetable
 300,Apple,50,kg,Fruit
 100,Milk,17,Litter,Dairy
+201,Potato,25,kg,Vegetable
+301,Orange,35,kg,Fruit
+303,Papaya,100,kg,Fruit
+304,Strawberry,59,Box,Fruit
+101,Butter,59,Gram,Dairy
+203,Brocoli,15,Piece,Vegetable

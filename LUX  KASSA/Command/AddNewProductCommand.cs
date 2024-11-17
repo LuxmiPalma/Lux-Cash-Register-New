@@ -60,6 +60,7 @@ namespace Lux_Cash_Register.Command
                 if (_products.Exists(p => p.ProductId == productId))
                 {
                     _errorHandler.ShowError("A product with this ID already exists.");
+                    Console.ReadLine();
                     continue;
                 }
 
@@ -78,6 +79,7 @@ namespace Lux_Cash_Register.Command
                 {
                     Console.WriteLine("Debug: Duplicate product ID detected"); // Verify if this block is reached
                     _errorHandler.ShowError("A product with this name/Id already exists.");
+                    Console.ReadLine();
                     continue;
                 }
 
@@ -85,6 +87,7 @@ namespace Lux_Cash_Register.Command
                 if (!double.TryParse(Console.ReadLine(), out double price))
                 {
                     _errorHandler.ShowError("Invalid price.");
+                    Console.ReadLine();
                     continue;
                 }
 
@@ -97,6 +100,7 @@ namespace Lux_Cash_Register.Command
                 {
                     Console.WriteLine("Category cannot be empty. Setting to 'Uncategorized'.");
                     category = "Uncategorized";
+
                 }
 
 

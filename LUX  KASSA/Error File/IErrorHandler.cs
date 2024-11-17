@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 namespace LUX__KASSA
-
 {
     public interface IErrorHandler
     {

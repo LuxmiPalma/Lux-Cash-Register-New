@@ -130,32 +130,45 @@ namespace Lux_Cash_Register.Command
                     return;
                 }
 
-                // Display the most recent campaign details to confirm removal
-                var lastCampaign = product.Campaigns.LastOrDefault();
-                if (lastCampaign != null)
+                // Display all campaigns for the product
+                Console.WriteLine("Available campaigns:");
+                for (int i = 0; i < product.Campaigns.Count; i++)
                 {
-                    Console.WriteLine($"The most recent campaign: {lastCampaign.StartDate:yyyy-MM-dd} to {lastCampaign.EndDate:yyyy-MM-dd} - Price: {lastCampaign.CampaignPrice}");
-                    Console.Write("Do you want to permanently remove this campaign? (y/n): ");
-
-                    // Check if user confirms removal
-                    if (Console.ReadLine()?.ToLower() == "y")
-                    {
-                        // Remove the campaign from the in-memory list
-                        product.RemoveCampaign(lastCampaign);
-
-                        // Save the updated campaigns to the file to make the removal permanent
-                        _fileHandler.SaveCampaigns(_products);
-
-                        Console.WriteLine("Campaign has been permanently removed.");
-
-                        // Update any dependent components, like the SalesManager
-                        _salesManager?.UpdateProductInSales(product);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Campaign removal cancelled.");
-                    }
+                    var campaign = product.Campaigns[i];
+                    Console.WriteLine($"{i + 1}. {campaign.StartDate:yyyy-MM-dd} to {campaign.EndDate:yyyy-MM-dd} - Price: {campaign.CampaignPrice}");
                 }
+
+                Console.Write("Enter the number of the campaign you want to remove: ");
+                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > product.Campaigns.Count)
+                {
+                    _errorHandler.ShowError("Invalid choice. Please select a valid campaign number.");
+                    return;
+                }
+
+                // Get the selected campaign
+                var selectedCampaign = product.Campaigns[choice - 1];
+
+                Console.Write($"Are you sure you want to remove the campaign from {selectedCampaign.StartDate:yyyy-MM-dd} to {selectedCampaign.EndDate:yyyy-MM-dd}? (y/n): ");
+
+                // Check if user confirms removal
+                if (Console.ReadLine()?.ToLower() == "y")
+                {
+                    // Remove the campaign from the in-memory list
+                    product.RemoveCampaign(selectedCampaign);
+
+                    // Save the updated campaigns to the file to make the removal permanent
+                    _fileHandler.SaveCampaigns(_products);
+
+                    Console.WriteLine("Campaign has been permanently removed.");
+
+                    // Update any dependent components, like the SalesManager
+                    _salesManager?.UpdateProductInSales(product);
+
+
+
+                    Console.WriteLine("Campaign removal cancelled.");
+                }
+
                 else
                 {
                     _errorHandler.ShowError("No recent campaign found to remove.");
@@ -190,7 +203,7 @@ namespace Lux_Cash_Register.Command
             try
             {
                 Console.WriteLine("Loading campaigns from file...");
-                _fileHandler.LoadProducts();
+                _fileHandler.LoadCampaigns(_products);
 
             }
             catch (Exception ex)

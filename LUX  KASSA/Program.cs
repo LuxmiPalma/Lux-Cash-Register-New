@@ -1,5 +1,5 @@
-﻿using LUX__KASSA.Manager;
-using Lux_Cash_Register.Command;
+﻿using Lux_Cash_Register.Command;
+using LUX__KASSA.Manager;
 using Lux_Cash_Register.Manager;
 using Lux_Cash_Register.Models;
 using System;
