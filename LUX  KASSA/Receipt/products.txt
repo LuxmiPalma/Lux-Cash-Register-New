@@ -7,3 +7,4 @@
 304,Strawberry,59,Box,Fruit
 101,Butter,59,Gram,Dairy
 203,Brocoli,15,Piece,Vegetable
+400,Tooth Brush,20,Pieace,Care
